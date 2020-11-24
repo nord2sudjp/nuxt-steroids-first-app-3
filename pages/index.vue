@@ -3,18 +3,38 @@
     <section class="intro">
       <h1>Get the latest tech news!</h1>
     </section>
-    <PostList />
+    <PostList :posts="loadedPosts" />
   </div>
 </template>
 
 <script>
-import PostList from '@/components/Posts/PostList'
+import PostList from "@/components/Posts/PostList";
 
 export default {
   components: {
     PostList
+  },
+  data() {
+    return {
+      loadedPosts: [
+        {
+          id: '1',
+          title: "First Post",
+          previewText: "This is our first post!",
+          thumbnail:
+            "https://static.pexels.com/photos/270348/pexels-photo-270348.jpeg"
+        },
+          {
+          id: '2',
+          title: "Second Post",
+          previewText: "This is our second post!",
+          thumbnail:
+            "https://static.pexels.com/photos/270348/pexels-photo-270348.jpeg"
+        }
+      ]
+    };
   }
-}
+};
 </script>
 
 
@@ -24,7 +44,7 @@ export default {
   position: relative;
   padding: 30px;
   box-sizing: border-box;
-  background-image: url('~assets/images/main-page-background.jpg');
+  background-image: url("~assets/images/main-page-background.jpg");
   background-position: center;
   background-size: cover;
 }
