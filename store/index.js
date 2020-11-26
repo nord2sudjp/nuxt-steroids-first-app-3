@@ -47,7 +47,7 @@ const createStore = () => {
         };
         return this.$axios
           .$post(
-            "https://nuxtsteroids.firebaseio.com/posts.json?auth=" +
+            "https://nuxt-blog.firebaseio.com/posts.json?auth=" +
               vuexContext.state.token,
             createdPost
           )
@@ -59,7 +59,7 @@ const createStore = () => {
       editPost(vuexContext, editedPost) {
         return this.$axios
           .$put(
-            "https://nuxtsteroids.firebaseio.com/posts/" +
+            "https://nuxt-blog.firebaseio.com/posts/" +
               editedPost.id +
               ".json?auth=" +
               vuexContext.state.token,
@@ -100,6 +100,9 @@ const createStore = () => {
               "expirationDate",
               new Date().getTime() + Number.parseInt(result.expiresIn) * 1000
             );
+            return this.$axios.$post("http://localhost:3000/api/track-data", {
+              data: "Authenticated!"
+            });
           })
           .catch(e => console.log(e));
       },
@@ -127,7 +130,7 @@ const createStore = () => {
         }
         if (new Date().getTime() > +expirationDate || !token) {
           console.log("No token or invalid token");
-          vuexContext.commit("clearToken");
+          vuexContext.dispatch("logout");
           return;
         }
         vuexContext.commit("setToken", token);
