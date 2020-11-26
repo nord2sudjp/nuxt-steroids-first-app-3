@@ -22,18 +22,26 @@ const createStore = () => {
     actions: {
       nuxtServerInit(vuexContext, context) {
         console.log("nuxtServerInit:start");
-        return this.$axios
+        console.log("nuxtServerInit context:" + context.app.$axios);
+        context.app.$axios.$get("http://www.yahoo.com").then(data => {
+          console.log("nuxtServerInit context:" + data.slice(0, 100));
+        });
+        //return this.$axios
+        //  .$get("https://nuxtsteroids.firebaseio.com/posts.json")
+        return context.app.$axios
           .$get("https://nuxtsteroids.firebaseio.com/posts.json")
           .then(data => {
             const postsArray = [];
+            console.log("nuxtServerInit.1:" + data);
+
             for (const key in data) {
-              console.log("nuxtServerInit:" + data[key]);
+              console.log("nuxtServerInit.1:" + key + "," + data[key]);
               postsArray.push({ ...data[key], id: key });
             }
             vuexContext.commit("setPosts", postsArray);
           })
           .catch(e => {
-            console.log(e);
+            console.log("nuxtServerInit.2:" + e.toString());
             context.error(e);
           });
       },

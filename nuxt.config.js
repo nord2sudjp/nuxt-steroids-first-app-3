@@ -49,7 +49,7 @@ module.exports = {
    */
   modules: ["@nuxtjs/axios"],
   axios: {
-    baseUrl: process.env.BASE_URL || "https://nuxtsteroids.firebaseio.com",
+    //baseURL: process.env.BASE_URL || "https://nuxtsteroids.firebaseio.com",
     credentials: false
   },
 
