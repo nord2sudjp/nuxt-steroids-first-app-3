@@ -63,7 +63,8 @@ module.exports = {
     extend(config, ctx) {}
   },
   env: {
-    baseUrl: process.env.BASE_URL || "https://nuxtsteroids.firebaseio.com"
+    baseUrl: process.env.BASE_URL || "https://nuxtsteroids.firebaseio.com",
+    fbAPIKey: "AIzaSyBgY44kzV6oTqHj_rzBnYjo4wfW2Ojc-NU"
   },
   transition: {
     name: "fade",

@@ -13,10 +13,6 @@ export default {
     loadedPosts() {
       return this.$store.getters.loadedPosts
     }
-  },
-  async asyncData({ app }) {
-    const response = await app.$axios.$get('https://www.google.com');
-    console.log("index.asyncData:" + response.slice(1,100));
   }
   // data() {
   //   return {
