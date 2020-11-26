@@ -7,19 +7,23 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios";
 import AdminPostForm from "@/components/Admin/AdminPostForm";
 
 export default {
-  layout: 'admin',
+  layout: "admin",
   components: {
     AdminPostForm
   },
   methods: {
     onSubmitted(postData) {
-      axios.post('https://nuxtsteroids.firebaseio.com/posts.json', postData)
+      axios
+        .post("https://nuxtsteroids.firebaseio.com/posts.json", {
+          ...postData,
+          updatedDate: new Date()
+        })
         .then(result => console.log(result))
-        .catch(e => console.log(e))
+        .catch(e => console.log(e));
     }
   }
 };
@@ -37,4 +41,3 @@ export default {
   }
 }
 </style>
-
