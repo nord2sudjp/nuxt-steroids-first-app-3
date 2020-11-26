@@ -21,16 +21,21 @@ const createStore = () => {
     },
     actions: {
       nuxtServerInit(vuexContext, context) {
-        return context.app.$axios
-          .$get("/posts.json")
+        console.log("nuxtServerInit:start");
+        return this.$axios
+          .$get("https://nuxtsteroids.firebaseio.com/posts.json")
           .then(data => {
             const postsArray = [];
             for (const key in data) {
+              console.log("nuxtServerInit:" + data[key]);
               postsArray.push({ ...data[key], id: key });
             }
             vuexContext.commit("setPosts", postsArray);
           })
-          .catch(e => context.error(e));
+          .catch(e => {
+            console.log(e);
+            context.error(e);
+          });
       },
       addPost(vuexContext, post) {
         const createdPost = {
@@ -38,7 +43,7 @@ const createStore = () => {
           updatedDate: new Date()
         };
         return this.$axios
-          .$post("/posts.json", createdPost)
+          .$post("https://nuxtsteroids.firebaseio.com/posts.json", createdPost)
           .then(data => {
             vuexContext.commit("addPost", { ...createdPost, id: data.name });
           })
@@ -46,7 +51,12 @@ const createStore = () => {
       },
       editPost(vuexContext, editedPost) {
         return this.$axios
-          .$put("/posts/" + editedPost.id + ".json", editedPost)
+          .$put(
+            "https://nuxtsteroids.firebaseio.com/posts/" +
+              editedPost.id +
+              ".json",
+            editedPost
+          )
           .then(res => {
             vuexContext.commit("editPost", editedPost);
           })
